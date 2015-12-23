@@ -23,8 +23,9 @@ def create_app(config_name):
 	database.init_app(app)
 	# socketio.init_app(app)
 
-	with app.app_context():
-		from db.model import User
+	# with app.app_context():
+	from db.model import User
+	SS = database.session
 
 	@app.route('/')
 	def index():
@@ -35,17 +36,16 @@ def create_app(config_name):
 	@app.route('/add_user', methods=['POST'])
 	def add_user():
 		user = User(**request.form)
-		# SS.add(user)
-		# SS.flush()
+		SS.add(user)
+		SS.flush()
 		return redirect(url_for('index'))
 
 	@app.teardown_request
 	def terminate_transaction(exception=None):
-		# if exception:
-		# 	SS.rollback()
-		# else:
-		# 	SS.commit()
-		pass
+		if exception:
+			SS.rollback()
+		else:
+			SS.commit()
 
 	# @socketio.on('message')
 	# def handle_message(message):

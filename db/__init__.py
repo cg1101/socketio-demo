@@ -1,3 +1,6 @@
+
 from flask.ext.sqlalchemy import SQLAlchemy
 
-database = SQLAlchemy()
+from .schema import metadata
+
+database = SQLAlchemy(metadata=metadata)
