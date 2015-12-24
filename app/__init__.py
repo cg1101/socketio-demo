@@ -5,8 +5,9 @@ from config import config
 from db import database
 from .socketio import socketio
 
-def create_app(config_name):
+def create_app(config_name, debug=False):
 	app = Flask(__name__)
+	app.debug = debug
 	app.config.from_object(config[config_name])
 
 	config[config_name].init_app(app)
@@ -14,6 +15,9 @@ def create_app(config_name):
 	socketio.init_app(app)
 
 	SS = database.session
+
+	from .views import views
+	app.register_blueprint(views, url_prefix='')
 
 	@app.teardown_request
 	def terminate_transaction(exception=None):
