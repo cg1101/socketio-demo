@@ -1,0 +1,3 @@
+#!/bin/bash
+
+export DATABASE_URI=mysql+pymysql://localhost/fake_login_dev

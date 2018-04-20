@@ -7,9 +7,9 @@ VENV=venv${VERSION}
 
 if [ ! -e "${DIR}/${VENV}" ]; then
 	if [ "${VERSION:0:1}" = "2" ]; then
-		VENV=venv2.7
+		VENV=$(echo venv2.?)
 	else
-		VENV=venv3.5
+		VENV=$(echo venv3.?)
 	fi
 fi
 

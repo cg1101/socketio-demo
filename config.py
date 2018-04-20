@@ -1,30 +1,27 @@
 
+import os
+
 class Config:
+	SECRET_KEY = 'secret for cookie'
+	SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+	SQLALCHEMY_TRACK_MODIFICATIONS = False
+	SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URI']
 	@staticmethod
 	def init_app(app):
 		pass
 
 class DevelopmentConfig(Config):
-	SECRET_KEY = 'development secret!'
-	# DB_URL = 'mysql+pymysql://localhost/fake_login'
-	SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://localhost/fake_login_dev'
-	SQLALCHEMY_TRACK_MODIFICATIONS = True
+	pass
 
 class TestingConfig(Config):
-	SECRET_KEY = 'testing secret!'
-	# DB_URL = 'mysql+pymysql://localhost/fake_login'
-	SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://localhost/fake_login_test'
-	SQLALCHEMY_TRACK_MODIFICATIONS = False
+	pass
 
 class ProductionConfig(Config):
-	SECRET_KEY = 'production secret!'
-	# DB_URL = 'mysql+pymysql://localhost/fake_login'
-	SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://localhost/fake_login'
-	SQLALCHEMY_TRACK_MODIFICATIONS = False
+	pass
 
 config = {
+	'production': ProductionConfig,
+	'testing': TestingConfig,
 	'development': DevelopmentConfig,
 	'default': DevelopmentConfig,
-	'testing': TestingConfig,
-	'production': ProductionConfig,
 }
